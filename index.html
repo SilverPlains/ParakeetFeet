@@ -75,7 +75,7 @@
         <div class="container mx-auto px-4 py-4">
             <div class="flex justify-between items-center">
                 <a href="#" class="flex items-center group">
-                    <img src="logo.png" alt="Silver Plains Electric Logo" class="w-10 h-10 object-contain mr-3">
+                    <img src="logo.jpg" alt="Silver Plains Electric Logo" class="w-10 h-10 object-contain mr-3">
                     <div class="flex flex-col">
                         <span class="text-2xl font-bold uppercase tracking-tighter leading-none text-slate-900">Silver Plains</span>
                         <span class="text-sm font-semibold tracking-widest text-brand-blue uppercase leading-none">Electric</span>
@@ -183,7 +183,7 @@
                 <div class="md:w-1/2">
                     <!-- Replace the 'src' link below with your new residential photo filename -->
                     <img 
-                        src="photo1.jpg" 
+                        src="https://placehold.co/800x600/e2e8f0/475569?text=Residential+Photo+Placeholder" 
                         alt="Upload residential photo here" 
                         class="rounded shadow-2xl object-cover h-96 w-full"
                     >
@@ -228,7 +228,7 @@
                 <div class="md:w-1/2">
                     <!-- Replace the 'src' link below with your new commercial photo filename -->
                     <img 
-                        src="photo2.jpg" 
+                        src="https://placehold.co/800x600/e2e8f0/475569?text=Commercial+Photo+Placeholder" 
                         alt="Upload commercial photo here" 
                         class="rounded shadow-2xl object-cover h-96 w-full"
                     >
@@ -459,7 +459,7 @@
             }
         }
 
-        // Form submission logic using FormSubmit.co
+        // Form submission logic using Web3Forms
         document.getElementById('contact-form').addEventListener('submit', function(e) {
             e.preventDefault();
             
@@ -473,17 +473,19 @@
 
             // Gather form data
             const formData = {
+                // IMPORTANT: Replace the text below with your actual Access Key from Web3Forms
+                access_key: "c7008289-a562-4de9-9c3f-889f96706413",
+                
+                subject: "New Website Lead: " + document.getElementById('name').value,
                 name: document.getElementById('name').value,
                 phone: document.getElementById('phone').value,
                 email: document.getElementById('email').value,
                 service: document.getElementById('service-type').value,
-                description: document.getElementById('description').value,
-                _subject: "New Website Lead: " + document.getElementById('name').value,
-                _template: "table"
+                description: document.getElementById('description').value
             };
 
-            // Send to FormSubmit via AJAX
-            fetch("https://formsubmit.co/ajax/info@silverplainselectric.com", {
+            // Send to Web3Forms API
+            fetch("https://api.web3forms.com/submit", {
                 method: "POST",
                 headers: { 
                     'Content-Type': 'application/json',
@@ -491,12 +493,22 @@
                 },
                 body: JSON.stringify(formData)
             })
-            .then(response => response.json())
-            .then(data => {
-                // Show success message and reset form
-                document.getElementById('success-msg').classList.remove('hidden');
-                document.getElementById('contact-form').reset();
-                
+            .then(async (response) => {
+                let json = await response.json();
+                if (response.status == 200) {
+                    // Show success message and reset form
+                    document.getElementById('success-msg').classList.remove('hidden');
+                    document.getElementById('contact-form').reset();
+                } else {
+                    console.error(response);
+                    alert("Submission failed. Message: " + json.message);
+                }
+            })
+            .catch(error => {
+                console.error("Error:", error);
+                alert("There was a problem sending your message. Please contact us directly by phone or email.");
+            })
+            .finally(() => {
                 // Reset button state
                 submitBtn.innerText = originalText;
                 submitBtn.disabled = false;
@@ -506,15 +518,6 @@
                 setTimeout(() => {
                     document.getElementById('success-msg').classList.add('hidden');
                 }, 5000);
-            })
-            .catch(error => {
-                console.error("Error:", error);
-                alert("There was a problem sending your message. Please contact us directly by phone or email.");
-                
-                // Reset button state
-                submitBtn.innerText = originalText;
-                submitBtn.disabled = false;
-                submitBtn.classList.remove('opacity-75', 'cursor-not-allowed');
             });
         });
     </script>
