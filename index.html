@@ -75,7 +75,7 @@
                 <span><i class="fas fa-map-marker-alt text-brand-accent mr-2"></i>Serving Southern Alberta</span>
             </div>
             <div class="font-bold text-white">
-                <i class="fas fa-phone-alt mr-2 text-brand-accent"></i> 24/7 Emergency: <a href="tel:825-513-3987" class="hover:text-brand-accent transition">(825) 513-3987</a>
+                <i class="fas fa-phone-alt mr-2 text-brand-accent"></i> 24/7 Emergency: <a href="tel:825-513-3987" onclick="gtag('event', 'conversion', {'send_to': 'AW-18234802611/nA9yCIWt0escELODhPdD', 'value': 1.0, 'currency': 'CAD'});" class="hover:text-brand-accent transition">(825)513-3987</a>
             </div>
         </div>
     </div>
@@ -132,7 +132,7 @@
                     <a href="#contact" class="px-8 py-4 bg-brand-blue text-white font-bold rounded hover:bg-blue-700 transition shadow-lg text-center">
                         Get a Free Quote
                     </a>
-                    <a href="https://calendar.app.google/cF8aDNvSZU5TAMSy5" target="_blank" class="px-8 py-4 bg-brand-accent text-brand-dark font-bold rounded hover:bg-yellow-500 transition shadow-lg text-center">
+                    <a href="https://calendar.app.google/cF8aDNvSZU5TAMSy5" target="_blank" onclick="gtag('event', 'conversion', {'send_to': 'AW-18234802611/RhXjCIKt0escELODhPdD'});" class="px-8 py-4 bg-brand-accent text-brand-dark font-bold rounded hover:bg-yellow-500 transition shadow-lg text-center">
                         Schedule an Appointment
                     </a>
                     <a href="#services" class="px-8 py-4 bg-transparent border-2 border-white text-white font-bold rounded hover:bg-white hover:text-brand-dark transition text-center">
@@ -417,7 +417,7 @@
                         <!-- Emergency Message (Hidden by default) -->
                         <div id="emergency-msg" class="hidden bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative text-center">
                             <strong class="font-bold block text-lg mb-1">Emergency Service Required?</strong>
-                            <span class="block sm:inline">Please skip this form and call our 24/7 emergency line immediately at <a href="tel:825-513-3987" class="font-bold underline text-red-800 hover:text-red-900">(825) 513-3987</a>.</span>
+                            <span class="block sm:inline">Please skip this form and call our 24/7 emergency line immediately at <a href="tel:825-513-3987" onclick="gtag('event', 'conversion', {'send_to': 'AW-18234802611/nA9yCIWt0escELODhPdD', 'value': 1.0, 'currency': 'CAD'});" class="font-bold underline text-red-800 hover:text-red-900">(825)513-3987</a>.</span>
                         </div>
 
                         <button type="submit" id="submit-btn" class="w-full bg-brand-blue text-white font-bold text-lg py-4 rounded hover:bg-blue-700 transition transform hover:-translate-y-1 shadow-lg">
@@ -545,6 +545,11 @@
                     // Show success message and reset form
                     document.getElementById('success-msg').classList.remove('hidden');
                     document.getElementById('contact-form').reset();
+                    
+                    // GOOGLE ADS TRACKING: Successful Form Submit
+                    if (typeof gtag === 'function') {
+                        gtag('event', 'conversion', {'send_to': 'AW-18234802611/euPDCIit0escELODhPdD'});
+                    }
                 } else {
                     console.error(response);
                     alert("Submission failed. Message: " + json.message);
