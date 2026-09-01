@@ -1,6 +1,15 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=AW-18234802611"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'AW-18234802611');
+</script>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Silver Plains Electric | Residential & Commercial Electrical Services</title>
@@ -75,7 +84,9 @@
         <div class="container mx-auto px-4 py-4">
             <div class="flex justify-between items-center">
                 <a href="#" class="flex items-center group">
-                    <img src="logo.png" alt="Silver Plains Electric Logo" class="w-10 h-10 object-contain mr-3">
+                    <div class="w-10 h-10 bg-brand-dark text-white flex items-center justify-center rounded-sm mr-3 group-hover:bg-brand-blue transition duration-300">
+                        <i class="fas fa-bolt text-xl"></i>
+                    </div>
                     <div class="flex flex-col">
                         <span class="text-2xl font-bold uppercase tracking-tighter leading-none text-slate-900">Silver Plains</span>
                         <span class="text-sm font-semibold tracking-widest text-brand-blue uppercase leading-none">Electric</span>
@@ -143,8 +154,8 @@
                     <p class="text-slate-600 mb-4">From complete home renovations and new builds to simple fixture upgrades, we ensure your home is safe and bright.</p>
                     <ul class="text-sm text-slate-500 space-y-2">
                         <li><i class="fas fa-check text-green-500 mr-2"></i>New Construction Wiring</li>
-                        <li><i class="fas fa-check text-green-500 mr-2"></i>Panel Upgrades</li>
-                        <li><i class="fas fa-check text-green-500 mr-2"></i>Smart Home Installation</li>
+                        <li><i class="fas fa-check text-green-500 mr-2"></i>Service & Panel Upgrades</li>
+                        <li><i class="fas fa-check text-green-500 mr-2"></i>Security Lighting & Cameras</li>
                     </ul>
                 </div>
 
@@ -181,7 +192,6 @@
         <div class="container mx-auto px-4">
             <div class="flex flex-col md:flex-row items-center gap-12">
                 <div class="md:w-1/2">
-                    <!-- Replace the 'src' link below with your new residential photo filename -->
                     <img 
                         src="photo1.jpg" 
                         alt="Upload residential photo here" 
@@ -226,7 +236,6 @@
         <div class="container mx-auto px-4">
             <div class="flex flex-col md:flex-row-reverse items-center gap-12">
                 <div class="md:w-1/2">
-                    <!-- Replace the 'src' link below with your new commercial photo filename -->
                     <img 
                         src="photo2.jpg" 
                         alt="Upload commercial photo here" 
@@ -262,6 +271,44 @@
                             </div>
                         </li>
                     </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="py-20 bg-white">
+        <div class="container mx-auto px-4">
+            <div class="flex flex-col md:flex-row items-center gap-12">
+                <div class="md:w-1/2">
+                    <h4 class="text-brand-blue font-bold tracking-widest uppercase mb-2">About Us</h4>
+                    <h2 class="text-4xl font-bold mb-6 text-brand-dark">Your Trusted Local Electricians</h2>
+                    <p class="text-slate-600 mb-4 text-lg">
+                        Based in Calgary, Silver Plains Electric is built on a foundation of safety, integrity, and uncompromising quality. We take pride in serving our local communities across Southern Alberta.
+                    </p>
+                    <p class="text-slate-600 mb-8 text-lg">
+                        Whether it's a midnight emergency call or a massive commercial build, our licensed and insured team treats every property with the utmost respect. We don't just fix electrical issues; we build lasting relationships with our clients through transparent pricing and reliable service.
+                    </p>
+                    
+                    <div class="grid grid-cols-2 gap-6 mb-6">
+                        <div>
+                            <h4 class="font-bold text-slate-800 text-xl mb-2"><i class="fas fa-shield-check text-brand-accent mr-2"></i> Safety First</h4>
+                            <p class="text-sm text-slate-500">Strict adherence to the Canadian Electrical Code on every single job.</p>
+                        </div>
+                        <div>
+                            <h4 class="font-bold text-slate-800 text-xl mb-2"><i class="fas fa-handshake text-brand-accent mr-2"></i> Honest Pricing</h4>
+                            <p class="text-sm text-slate-500">No hidden fees or surprise charges. We quote fairly and transparently.</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="md:w-1/2 relative">
+                    <div class="absolute inset-0 bg-brand-blue rounded translate-x-4 translate-y-4 -z-10"></div>
+                    <img 
+                        src="https://placehold.co/800x800/e2e8f0/475569?text=Team+or+Van+Photo+Placeholder" 
+                        alt="Silver Plains Electric Team" 
+                        class="rounded shadow-xl object-cover h-[500px] w-full"
+                    >
                 </div>
             </div>
         </div>
@@ -346,7 +393,7 @@
                             </div>
 
                             <div>
-                                <label for="service-type" class="block text-sm font-bold text-slate-700 mb-2">Service Needed *</label>
+                                <label for="service-type" class="block text-sm font-bold text-slate-700 mb-2">Service Requested *</label>
                                 <div class="relative">
                                     <select id="service-type" onchange="handleServiceChange(this)" class="w-full px-4 py-3 rounded border border-slate-300 focus:border-brand-blue focus:ring-2 focus:ring-blue-100 outline-none transition appearance-none bg-white">
                                         <option value="" disabled selected>Select an option...</option>
@@ -396,7 +443,7 @@
                         <span class="text-xl font-bold uppercase">Silver Plains Electric</span>
                     </div>
                     <p class="text-sm max-w-xs">
-                        Premier electrical contracting for residential and commercial clients. Licensed, bonded, and insured.
+                        Premier electrical contracting for residential and commercial clients. Licensed and insured.
                     </p>
                 </div>
                 <div>
@@ -417,12 +464,12 @@
                     <div class="flex space-x-4">
                         <a href="https://www.facebook.com/SilverPlainsElectric/" target="_blank" class="w-8 h-8 rounded bg-slate-800 flex items-center justify-center hover:bg-brand-blue hover:text-white transition"><i class="fab fa-facebook-f"></i></a>
                         <a href="#" class="w-8 h-8 rounded bg-slate-800 flex items-center justify-center hover:bg-brand-blue hover:text-white transition"><i class="fab fa-instagram"></i></a>
-                        <a href="#" class="w-8 h-8 rounded bg-slate-800 flex items-center justify-center hover:bg-brand-blue hover:text-white transition"><i class="fab fa-linkedin-in"></i></a>
+                        <a href="https://www.linkedin.com/in/bobby-noseworthy-999bb1432/" target="_blank" class="w-8 h-8 rounded bg-slate-800 flex items-center justify-center hover:bg-brand-blue hover:text-white transition"><i class="fab fa-linkedin-in"></i></a>
                     </div>
                 </div>
             </div>
             <div class="border-t border-slate-800 pt-8 text-center text-xs">
-                &copy; 2026 Silver Plains Electric. All rights reserved. | Licence # BL281602
+                &copy; 2026 Silver Plains Electric. All rights reserved. | Licence # BL305602
             </div>
         </div>
     </footer>
@@ -473,7 +520,6 @@
 
             // Gather form data
             const formData = {
-                // IMPORTANT: Replace the text below with your actual Access Key from Web3Forms
                 access_key: "c7008289-a562-4de9-9c3f-889f96706413",
                 
                 subject: "New Website Lead: " + document.getElementById('name').value,
