@@ -70,12 +70,21 @@ jobs:
       - name: Commit and push changes
         run: |
           git config --global user.name "github-actions[bot]"
-          git config --global user.email "github-actions[bot]@://github.com"
+          git config --global user.email "github-actions[bot]@users.noreply.github.com"
+          
+          # Explicitly track the remote main branch
+          git fetch origin main
+          git checkout main
+          
           git add reviews.json
+          
           if ! git diff --staged --quiet; then
             git commit -m "chore: sync latest Google reviews [skip ci]"
-            # Fetch remote updates and stack your changes cleanly on top
+            
+            # Pull down any incoming remote changes and stack yours neatly on top
             git pull --rebase origin main
+            
+            # Safely push the commit to main
             git push origin main
           else
             echo "No changes in reviews.json to commit."
