@@ -9,6 +9,10 @@ on:
 permissions:
   contents: write
 
+concurrency:
+  group: sync-reviews
+  cancel-in-progress: true
+
 jobs:
   update-reviews:
     runs-on: ubuntu-latest
@@ -16,8 +20,13 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
         with:
-          ref: main         # Explicitly pull the main branch
-          fetch-depth: 0    # Pull full history so rebasing is possible
+          ref: main
+          fetch-depth: 0
+
+      - name: Ensure on main branch
+        run: |
+          git checkout -B main
+          git pull origin main
 
       - name: Fetch Reviews from Google Places API
         run: |
@@ -27,22 +36,28 @@ jobs:
           const targetId = (process.env.GOOGLE_PLACE_ID || "").trim();
 
           if (!apiKey || !targetId) {
-            console.error("Missing API key or Place ID secrets");
+            console.error("Missing GOOGLE_PLACES_API_KEY or GOOGLE_PLACE_ID secret.");
             process.exit(0);
           }
 
           const url = targetId.startsWith("ChIJ")
-            ? `https://googleapis.com{targetId}&fields=reviews,rating,user_ratings_total&key=${apiKey}`
-            : `https://googleapis.com{targetId}&fields=reviews,rating,user_ratings_total&key=${apiKey}`;
+            ? `https://maps.googleapis.com/maps/api/place/details/json?place_id=${targetId}&fields=reviews,rating,user_ratings_total&key=${apiKey}`
+            : `https://maps.googleapis.com/maps/api/place/details/json?cid=${targetId}&fields=reviews,rating,user_ratings_total&key=${apiKey}`;
 
           fetch(url)
             .then(res => res.json())
             .then(data => {
-              if (data.status !== "OK" && data.status !== undefined) {
-                console.error("Google API status:", data.status, data.error_message || "");
+              console.log("Google API Status:", data.status);
+              if (data.status !== "OK") {
+                console.error("Google API Message:", data.error_message || "No additional error message");
               }
 
               const rawReviews = data.result?.reviews || [];
+              if (rawReviews.length === 0) {
+                console.log("No reviews returned by Google. Keeping existing reviews.json intact.");
+                return;
+              }
+
               const formatted = rawReviews.map(r => ({
                 name: r.author_name,
                 location: "Calgary, AB",
@@ -53,10 +68,10 @@ jobs:
               }));
 
               fs.writeFileSync("reviews.json", JSON.stringify(formatted, null, 2));
-              console.log(`Saved ${formatted.length} reviews to reviews.json`);
+              console.log(`Successfully saved ${formatted.length} reviews to reviews.json`);
             })
             .catch(err => {
-              console.error("Fetch error:", err);
+              console.error("Fetch request error:", err);
             });
           '
         env:
@@ -68,16 +83,14 @@ jobs:
           git config --global user.name "github-actions[bot]"
           git config --global user.email "github-actions[bot]@users.noreply.github.com"
           
-          # Force git to bind our local workspace tracking to the live remote main branch
+          # Force sync tracking onto the real main branch before acting
           git checkout main
           git pull origin main --rebase
           
           git add reviews.json
-          
           if ! git diff --staged --quiet; then
             git commit -m "chore: sync latest Google reviews [skip ci]"
-            # Double check upstream updates one last split-second before pushing
-            git pull origin main --rebase
+            git pull --rebase origin main
             git push origin main
           else
             echo "No changes in reviews.json to commit."
