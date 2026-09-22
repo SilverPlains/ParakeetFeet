@@ -16,8 +16,12 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
         with:
-          ref: main
           fetch-depth: 0
+
+      - name: Ensure on main branch
+        run: |
+          git checkout -B main
+          git pull origin main
 
       - name: Fetch Reviews from Google Places API
         run: |
@@ -70,8 +74,7 @@ jobs:
           git add reviews.json
           if ! git diff --staged --quiet; then
             git commit -m "chore: sync latest Google reviews [skip ci]"
-            git pull --rebase origin main
-            git push origin HEAD:main
+            git push origin main
           else
             echo "No changes in reviews.json to commit."
           fi
