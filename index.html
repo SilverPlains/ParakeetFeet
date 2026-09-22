@@ -142,7 +142,7 @@
                     <a href="#contact" class="px-8 py-4 bg-brand-blue text-white font-bold rounded hover:bg-blue-700 transition shadow-lg text-center">
                         Get a Free Quote
                     </a>
-                    <a href="https://calendar.app.google/cF8aDNvSZU5TAMSy5" target="_blank" rel="noopener noreferrer" onclick="gtag('event', 'conversion', {'send_to': 'AW-18234802611/RhXjCIKt0escELODhPdD'});" class="px-8 py-4 bg-brand-accent text-brand-dark font-bold rounded hover:bg-yellow-500 transition shadow-lg text-center">
+                    <a href="https://calendar.app.google/cF8aDNvSZU5TAMSy5" target="_blank" rel="noopener noreferrer" class="px-8 py-4 bg-brand-accent text-brand-dark font-bold rounded hover:bg-yellow-500 transition shadow-lg text-center">
                         Schedule an Appointment
                     </a>
                     <a href="#services" class="px-8 py-4 bg-transparent border-2 border-white text-white font-bold rounded hover:bg-white hover:text-brand-dark transition text-center">
@@ -369,7 +369,7 @@
 
                 <div class="shrink-0">
                     <a 
-                        href="https://g.page/r/CdhptAlnusy9EBM/review" 
+                        href="https://www.google.com/search?q=Silver+Plains+Electric+Calgary" 
                         target="_blank" 
                         rel="noopener noreferrer" 
                         id="google-review-btn"
@@ -413,11 +413,11 @@
                     </div>
                 </div>
                 <button 
-                    data-cal-link="https://cal.com/bobby-noseworthy-mdygrv/30min" 
+                    data-cal-link="silverplainselectric/onsite-assessment" 
                     data-cal-namespace="onsite-assessment"
                     data-cal-config='{"layout":"month_view"}'
                     onclick="if(typeof gtag==='function'){gtag('event', 'conversion', {'send_to': 'AW-18234802611/RhXjCIKt0escELODhPdD'});}"
-                    class="px-6 py-3.5 bg-brand-accent text-brand-dark font-bold rounded hover:bg-yellow-500 transition shadow flex items-center gap-2 shrink-0"
+                    class="px-6 py-3.5 bg-brand-accent text-brand-dark font-bold rounded hover:bg-yellow-500 transition shadow flex items-center gap-2 shrink-0 cursor-pointer"
                 >
                     <i class="far fa-calendar-alt"></i>
                     <span>Schedule Onsite Assessment</span>
@@ -695,23 +695,13 @@
         // When you get new Google reviews, paste them directly into this array.
         // If left empty ([]), the site displays a welcoming "Be the first to review" card.
         // =========================================================================
-        const googleReviews = [
-            // Example of how to add a real review when you receive one:
-            // {
-            //     name: "John D.",
-            //     location: "Calgary, AB",
-            //     projectType: "Panel Upgrade",
-            //     rating: 5,
-            //     date: "2 weeks ago",
-            //     text: "Bobby did exceptional work upgrading our 100A panel to 200A. Clean installation, passed inspection immediately."
-            // }
-        ];
+        let googleReviews = [];
 
         function renderGoogleReviews() {
             const container = document.getElementById('reviews-container');
             if (!container) return;
 
-            if (googleReviews.length === 0) {
+            if (!googleReviews || googleReviews.length === 0) {
                 // Honest, high-trust placeholder when at 0 reviews
                 container.innerHTML = `
                     <div class="bg-white rounded-2xl p-8 md:p-12 text-center max-w-2xl mx-auto border border-slate-200 shadow-sm">
@@ -765,8 +755,22 @@
             }
         }
 
-        // Initialize reviews render
-        renderGoogleReviews();
+        // Attempt to load reviews dynamically from reviews.json (synced automatically via GitHub Action)
+        fetch('reviews.json')
+            .then(res => {
+                if (!res.ok) throw new Error("No reviews file");
+                return res.json();
+            })
+            .then(data => {
+                if (Array.isArray(data) && data.length > 0) {
+                    googleReviews = data;
+                }
+                renderGoogleReviews();
+            })
+            .catch(() => {
+                // Fallback to in-memory reviews if reviews.json doesn't exist yet
+                renderGoogleReviews();
+            });
     </script>
 
     <!-- Cal.com Official Embed & Initialization Script -->
