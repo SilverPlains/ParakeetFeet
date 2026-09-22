@@ -4,7 +4,7 @@ on:
   schedule:
     # Runs daily at 04:00 UTC
     - cron: '0 4 * * *'
-  workflow_dispatch: # Allows you to manually trigger it anytime via the "Run workflow" button
+  workflow_dispatch: # Allows manual trigger anytime via "Run workflow"
 
 permissions:
   contents: write
@@ -15,24 +15,32 @@ jobs:
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
 
       - name: Fetch Reviews from Google Places API
         run: |
           node -e '
           const fs = require("fs");
-          const apiKey = process.env.GOOGLE_PLACES_API_KEY;
-          const placeId = process.env.GOOGLE_PLACE_ID;
-          
-          if (!apiKey || !placeId) {
+          const apiKey = (process.env.GOOGLE_PLACES_API_KEY || "").trim();
+          const targetId = (process.env.GOOGLE_PLACE_ID || "").trim();
+
+          if (!apiKey || !targetId) {
             console.error("Missing API key or Place ID secrets");
             process.exit(0);
           }
 
-          const url = `https://maps.googleapis.com/maps/api/place/details/json?place_id=${placeId}&fields=reviews,rating,user_ratings_total&key=${apiKey}`;
-          
+          const url = targetId.startsWith("ChIJ")
+            ? `https://googleapis.com{targetId}&fields=reviews,rating,user_ratings_total&key=${apiKey}`
+            : `https://googleapis.com{targetId}&fields=reviews,rating,user_ratings_total&key=${apiKey}`;
+
           fetch(url)
             .then(res => res.json())
             .then(data => {
+              if (data.status !== "OK" && data.status !== undefined) {
+                console.error("Google API status:", data.status, data.error_message || "");
+              }
+
               const rawReviews = data.result?.reviews || [];
               const formatted = rawReviews.map(r => ({
                 name: r.author_name,
@@ -42,22 +50,22 @@ jobs:
                 date: r.relative_time_description,
                 text: r.text
               }));
-              
+
               fs.writeFileSync("reviews.json", JSON.stringify(formatted, null, 2));
               console.log(`Saved ${formatted.length} reviews to reviews.json`);
             })
             .catch(err => {
-              console.error(err);
+              console.error("Fetch error:", err);
             });
           '
         env:
-          GOOGLE_PLACES_API_KEY: ${{ secrets.GOOGLE_PLACES_API_KEY }}
-          GOOGLE_PLACE_ID: ${{ secrets.GOOGLE_PLACE_ID }}
+          GOOGLE_PLACES_API_KEY: \${{ secrets.GOOGLE_PLACES_API_KEY }}
+          GOOGLE_PLACE_ID: \${{ secrets.GOOGLE_PLACE_ID }}
 
       - name: Commit and push changes
         run: |
           git config --global user.name "github-actions[bot]"
-          git config --global user.email "github-actions[bot]@users.noreply.github.com"
+          git config --global user.email "github-actions[bot]@://github.com"
           git add reviews.json
           if ! git diff --quiet || ! git diff --staged --quiet; then
             git commit -m "chore: sync latest Google reviews [skip ci]"
