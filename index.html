@@ -369,7 +369,7 @@
 
                 <div class="shrink-0">
                     <a 
-                        href="https://www.google.com/search?q=Silver+Plains+Electric+Calgary" 
+                        href="https://g.page/r/CdhptAlnusy9EBM/review" 
                         target="_blank" 
                         rel="noopener noreferrer" 
                         id="google-review-btn"
@@ -397,8 +397,31 @@
             <div class="text-center mb-16">
                 <h2 class="text-4xl font-bold text-white mb-4">Start Your Project</h2>
                 <p class="text-slate-400 max-w-2xl mx-auto">
-                    Ready to light up your space? Fill out the form below for a free estimate on your renovation, new build, or service request.
+                    Ready to light up your space? Book an onsite assessment directly on our live calendar, or fill out the form below for general inquiries.
                 </p>
+            </div>
+
+            <!-- Instant Calendar Booking Banner -->
+            <div class="max-w-6xl mx-auto mb-10 bg-slate-800/90 border border-slate-700 rounded-xl p-6 flex flex-col md:flex-row items-center justify-between gap-6 shadow-xl">
+                <div class="flex items-center gap-4 text-left">
+                    <div class="w-14 h-14 rounded-full bg-brand-accent/20 text-brand-accent flex items-center justify-center text-2xl shrink-0">
+                        <i class="far fa-calendar-check"></i>
+                    </div>
+                    <div>
+                        <h4 class="text-white font-bold text-lg">Prefer to pick a time right now?</h4>
+                        <p class="text-slate-400 text-sm">Choose an available slot on our live calendar for an onsite assessment in Calgary & surrounding areas.</p>
+                    </div>
+                </div>
+                <button 
+                    data-cal-link="https://cal.com/bobby-noseworthy-mdygrv/30min" 
+                    data-cal-namespace="onsite-assessment"
+                    data-cal-config='{"layout":"month_view"}'
+                    onclick="if(typeof gtag==='function'){gtag('event', 'conversion', {'send_to': 'AW-18234802611/RhXjCIKt0escELODhPdD'});}"
+                    class="px-6 py-3.5 bg-brand-accent text-brand-dark font-bold rounded hover:bg-yellow-500 transition shadow flex items-center gap-2 shrink-0"
+                >
+                    <i class="far fa-calendar-alt"></i>
+                    <span>Schedule Onsite Assessment</span>
+                </button>
             </div>
 
             <div class="flex flex-col lg:flex-row gap-12 max-w-6xl mx-auto">
@@ -701,6 +724,7 @@
                         </p>
                         <a 
                             href="https://g.page/r/CdhptAlnusy9EBM/review" 
+                            target="_blank" 
                             rel="noopener noreferrer"
                             class="inline-flex items-center gap-2 px-6 py-3 bg-brand-blue text-white font-semibold rounded hover:bg-blue-700 transition shadow"
                         >
@@ -743,6 +767,50 @@
 
         // Initialize reviews render
         renderGoogleReviews();
+    </script>
+
+    <!-- Cal.com Official Embed & Initialization Script -->
+    <script type="text/javascript">
+        (function (C, A, L) { 
+            let p = function (a, ar) { a.q.push(ar); }; 
+            let d = C.document; 
+            C.Cal = C.Cal || function () { 
+                let cal = C.Cal; 
+                let ar = arguments; 
+                if (!cal.loaded) { 
+                    cal.ns = {}; 
+                    cal.q = cal.q || []; 
+                    d.head.appendChild(d.createElement("script")).src = A; 
+                    cal.loaded = true; 
+                } 
+                if (ar[0] === L) { 
+                    const api = function () { p(api, arguments); }; 
+                    const namespace = ar[1]; 
+                    api.q = api.q || []; 
+                    if (typeof namespace === "string") {
+                        cal.ns[namespace] = cal.ns[namespace] || api;
+                        p(cal.ns[namespace], ar);
+                        p(cal, ["initNamespace", namespace]);
+                    } else p(cal, ar); 
+                    return; 
+                } 
+                p(cal, ar); 
+            }; 
+        })(window, "https://app.cal.com/embed/embed.js", "init");
+
+        // Initialize Cal.com namespace for onsite assessment
+        Cal("init", "onsite-assessment", {origin: "https://cal.com"});
+
+        Cal.ns["onsite-assessment"]("ui", {
+            "theme": "light",
+            "styles": {
+                "branding": {
+                    "brandColor": "#0056b3"
+                }
+            },
+            "hideEventTypeDetails": false,
+            "layout": "month_view"
+        });
     </script>
 </body>
 </html>
