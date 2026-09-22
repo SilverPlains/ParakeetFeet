@@ -16,6 +16,7 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
         with:
+          ref: main
           fetch-depth: 0
 
       - name: Fetch Reviews from Google Places API
@@ -31,8 +32,8 @@ jobs:
           }
 
           const url = targetId.startsWith("ChIJ")
-            ? `https://googleapis.com{targetId}&fields=reviews,rating,user_ratings_total&key=${apiKey}`
-            : `https://googleapis.com{targetId}&fields=reviews,rating,user_ratings_total&key=${apiKey}`;
+            ? `https://maps.googleapis.com/maps/api/place/details/json?place_id=${targetId}&fields=reviews,rating,user_ratings_total&key=${apiKey}`
+            : `https://maps.googleapis.com/maps/api/place/details/json?cid=${targetId}&fields=reviews,rating,user_ratings_total&key=${apiKey}`;
 
           fetch(url)
             .then(res => res.json())
@@ -65,10 +66,12 @@ jobs:
       - name: Commit and push changes
         run: |
           git config --global user.name "github-actions[bot]"
-          git config --global user.email "github-actions[bot]@://github.com"
+          git config --global user.email "github-actions[bot]@users.noreply.github.com"
           git add reviews.json
-          if ! git diff --quiet || ! git diff --staged --quiet; then
+          if ! git diff --staged --quiet; then
             git commit -m "chore: sync latest Google reviews [skip ci]"
             git pull --rebase origin main
-            git push origin main
+            git push origin HEAD:main
+          else
+            echo "No changes in reviews.json to commit."
           fi
