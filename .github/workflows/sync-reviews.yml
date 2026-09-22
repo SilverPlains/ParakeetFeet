@@ -49,57 +49,62 @@ jobs:
           console.log("Using verified Place ID:", placeId);
 
           async function fetchReviews() {
-            // Attempt 1: Standard Places API
-            try {
-              const legacyUrl = "https://maps.googleapis.com/maps/api/place/details/json?place_id=" + encodeURIComponent(placeId) + "&fields=reviews,rating,user_ratings_total&key=" + apiKey;
-              const res = await fetch(legacyUrl);
-              const data = await res.json();
-
-              console.log("Legacy API Status:", data.status);
-              if (data.status === "OK" && Array.isArray(data.result?.reviews) && data.result.reviews.length > 0) {
-                return data.result.reviews.map(r => ({
-                  name: r.author_name,
-                  location: "Calgary, AB",
-                  projectType: "Verified Client",
-                  rating: r.rating,
-                  date: r.relative_time_description,
-                  text: r.text
-                }));
-              }
-
-              if (data.error_message) {
-                console.log("Legacy API Message:", data.error_message);
-              }
-            } catch (err) {
-              console.log("Legacy endpoint failed:", err.message);
-            }
-
-            // Attempt 2: Google Places API (New v1 endpoint)
+            // Attempt 1: Google Places API (New v1 endpoint - Preferred)
             try {
               console.log("Attempting New Places API (v1)...");
               const newUrl = "https://places.googleapis.com/v1/places/" + placeId + "?fields=reviews,rating,userRatingCount";
-              const res2 = await fetch(newUrl, {
+              const res = await fetch(newUrl, {
                 headers: {
                   "Content-Type": "application/json",
                   "X-Goog-Api-Key": apiKey,
                   "X-Goog-FieldMask": "reviews,rating,userRatingCount"
                 }
               });
-              const data2 = await res2.json();
+              const data = await res.json();
 
-              if (Array.isArray(data2.reviews) && data2.reviews.length > 0) {
-                return data2.reviews.map(r => ({
-                  name: r.authorAttribution?.displayName || "Google Reviewer",
-                  location: "Calgary, AB",
-                  projectType: "Verified Client",
-                  rating: r.rating,
-                  date: r.relativePublishTimeDescription || "",
-                  text: r.originalText?.text || r.text?.text || ""
-                }));
+              if (Array.isArray(data.reviews) && data.reviews.length > 0) {
+                // Filter exclusively for 4 and 5-star reviews
+                const topReviews = data.reviews
+                  .filter(r => (r.rating || 5) >= 4)
+                  .map(r => ({
+                    name: r.authorAttribution?.displayName || "Google Reviewer",
+                    location: "Calgary, AB",
+                    projectType: "Verified Client",
+                    rating: r.rating || 5,
+                    date: r.relativePublishTimeDescription || "",
+                    text: r.originalText?.text || r.text?.text || ""
+                  }));
+                return topReviews;
               }
-              console.log("New API Response:", JSON.stringify(data2));
+              if (data.error) {
+                console.log("New API Note:", data.error.message || data.error.status);
+              }
             } catch (err) {
               console.log("New API endpoint failed:", err.message);
+            }
+
+            // Attempt 2: Legacy Places API fallback
+            try {
+              const legacyUrl = "https://maps.googleapis.com/maps/api/place/details/json?place_id=" + encodeURIComponent(placeId) + "&fields=reviews,rating,user_ratings_total&key=" + apiKey;
+              const res2 = await fetch(legacyUrl);
+              const data2 = await res2.json();
+
+              if (data2.status === "OK" && Array.isArray(data2.result?.reviews) && data2.result.reviews.length > 0) {
+                // Filter exclusively for 4 and 5-star reviews
+                const topReviews = data2.result.reviews
+                  .filter(r => (r.rating || 5) >= 4)
+                  .map(r => ({
+                    name: r.author_name,
+                    location: "Calgary, AB",
+                    projectType: "Verified Client",
+                    rating: r.rating || 5,
+                    date: r.relative_time_description,
+                    text: r.text
+                  }));
+                return topReviews;
+              }
+            } catch (err) {
+              console.log("Legacy fallback failed:", err.message);
             }
 
             return null;
@@ -108,9 +113,9 @@ jobs:
           fetchReviews().then(reviews => {
             if (reviews && reviews.length > 0) {
               fs.writeFileSync("reviews.json", JSON.stringify(reviews, null, 2));
-              console.log("Successfully saved " + reviews.length + " reviews to reviews.json");
+              console.log("Successfully saved " + reviews.length + " top-rated (4-5 star) reviews to reviews.json");
             } else {
-              console.log("No new reviews parsed. Leaving reviews.json as-is.");
+              console.log("No matching 4+ star reviews found. Leaving reviews.json as-is.");
             }
           });
           '
