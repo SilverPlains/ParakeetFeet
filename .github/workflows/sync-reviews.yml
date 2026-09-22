@@ -16,12 +16,8 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
         with:
-          fetch-depth: 0
-
-      - name: Ensure on main branch
-        run: |
-          git checkout -B main
-          git pull origin main
+          ref: main         # Explicitly pull the main branch
+          fetch-depth: 0    # Pull full history so rebasing is possible
 
       - name: Fetch Reviews from Google Places API
         run: |
@@ -36,8 +32,8 @@ jobs:
           }
 
           const url = targetId.startsWith("ChIJ")
-            ? `https://maps.googleapis.com/maps/api/place/details/json?place_id=${targetId}&fields=reviews,rating,user_ratings_total&key=${apiKey}`
-            : `https://maps.googleapis.com/maps/api/place/details/json?cid=${targetId}&fields=reviews,rating,user_ratings_total&key=${apiKey}`;
+            ? `https://googleapis.com{targetId}&fields=reviews,rating,user_ratings_total&key=${apiKey}`
+            : `https://googleapis.com{targetId}&fields=reviews,rating,user_ratings_total&key=${apiKey}`;
 
           fetch(url)
             .then(res => res.json())
@@ -72,19 +68,16 @@ jobs:
           git config --global user.name "github-actions[bot]"
           git config --global user.email "github-actions[bot]@users.noreply.github.com"
           
-          # Explicitly track the remote main branch
-          git fetch origin main
+          # Force git to bind our local workspace tracking to the live remote main branch
           git checkout main
+          git pull origin main --rebase
           
           git add reviews.json
           
           if ! git diff --staged --quiet; then
             git commit -m "chore: sync latest Google reviews [skip ci]"
-            
-            # Pull down any incoming remote changes and stack yours neatly on top
-            git pull --rebase origin main
-            
-            # Safely push the commit to main
+            # Double check upstream updates one last split-second before pushing
+            git pull origin main --rebase
             git push origin main
           else
             echo "No changes in reviews.json to commit."
