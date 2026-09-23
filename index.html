@@ -20,6 +20,10 @@
     
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&family=Oswald:wght@500;700&display=swap" rel="stylesheet">
 
+    <!-- Leaflet Interactive Map (Works seamlessly in all iframe previews) -->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+
     <style>
         body {
             font-family: 'Inter', sans-serif;
@@ -100,6 +104,7 @@
                     <a href="#residential" class="hover:text-brand-blue transition">Residential</a>
                     <a href="#commercial" class="hover:text-brand-blue transition">Commercial</a>
                     <a href="#about" class="hover:text-brand-blue transition">About</a>
+                    <a href="#service-area" class="hover:text-brand-blue transition">Service Area</a>
                     <a href="#reviews" class="hover:text-brand-blue transition flex items-center">
                         <i class="fas fa-star text-amber-400 text-xs mr-1"></i> Reviews
                     </a>
@@ -118,6 +123,7 @@
             <a href="#residential" class="block px-4 py-3 border-b border-slate-200 hover:bg-slate-200">Residential</a>
             <a href="#commercial" class="block px-4 py-3 border-b border-slate-200 hover:bg-slate-200">Commercial</a>
             <a href="#about" class="block px-4 py-3 border-b border-slate-200 hover:bg-slate-200">About</a>
+            <a href="#service-area" class="block px-4 py-3 border-b border-slate-200 hover:bg-slate-200">Service Area</a>
             <a href="#reviews" class="block px-4 py-3 border-b border-slate-200 hover:bg-slate-200 flex items-center">
                 <i class="fas fa-star text-amber-400 text-xs mr-2"></i> Reviews
             </a>
@@ -386,6 +392,71 @@
         </div>
     </section>
 
+    <!-- Service Area Section with Guaranteed-Render Interactive Map -->
+    <section id="service-area" class="py-20 bg-white border-t border-slate-200">
+        <div class="container mx-auto px-4">
+            <div class="max-w-3xl mx-auto text-center mb-12">
+                <div class="inline-flex items-center gap-2 bg-blue-50 text-brand-blue px-4 py-1.5 rounded-full text-xs font-bold uppercase tracking-wider mb-4 border border-blue-100">
+                    <i class="fas fa-truck"></i>
+                    <span>Local Dispatch</span>
+                </div>
+                <h2 class="text-4xl font-bold text-brand-dark mb-4">Our Service Area</h2>
+                <p class="text-slate-600 text-lg">
+                    Proudly providing licensed electrical services throughout Calgary and neighboring Southern Alberta communities.
+                </p>
+            </div>
+
+            <div class="grid lg:grid-cols-12 gap-8 items-center max-w-6xl mx-auto">
+                <!-- Service Coverage Details -->
+                <div class="lg:col-span-5 space-y-6">
+                    <div class="bg-slate-50 p-6 rounded-xl border border-slate-200 shadow-sm">
+                        <h3 class="text-xl font-bold text-slate-900 mb-3 flex items-center">
+                            <i class="fas fa-map-marker-alt text-brand-blue mr-3 text-2xl"></i>
+                            Calgary & Surrounding Regions
+                        </h3>
+                        <p class="text-slate-600 text-sm leading-relaxed mb-4">
+                            Based out of <strong>Copperfield SE</strong>, our mobile service units are fully equipped and dispatched daily to residential and commercial clients across the region.
+                        </p>
+                        
+                        <div class="flex flex-wrap gap-2 pt-2">
+                            <span class="px-3 py-1 bg-white text-slate-700 text-xs font-semibold rounded-full border border-slate-200 shadow-sm"><i class="fas fa-check text-green-500 mr-1.5"></i>Calgary (All Quadrants)</span>
+                            <span class="px-3 py-1 bg-white text-slate-700 text-xs font-semibold rounded-full border border-slate-200 shadow-sm"><i class="fas fa-check text-green-500 mr-1.5"></i>Okotoks</span>
+                            <span class="px-3 py-1 bg-white text-slate-700 text-xs font-semibold rounded-full border border-slate-200 shadow-sm"><i class="fas fa-check text-green-500 mr-1.5"></i>Airdrie</span>
+                            <span class="px-3 py-1 bg-white text-slate-700 text-xs font-semibold rounded-full border border-slate-200 shadow-sm"><i class="fas fa-check text-green-500 mr-1.5"></i>Chestermere</span>
+                            <span class="px-3 py-1 bg-white text-slate-700 text-xs font-semibold rounded-full border border-slate-200 shadow-sm"><i class="fas fa-check text-green-500 mr-1.5"></i>Langdon</span>
+                            <span class="px-3 py-1 bg-white text-slate-700 text-xs font-semibold rounded-full border border-slate-200 shadow-sm"><i class="fas fa-check text-green-500 mr-1.5"></i>High River</span>
+                            <span class="px-3 py-1 bg-white text-slate-700 text-xs font-semibold rounded-full border border-slate-200 shadow-sm"><i class="fas fa-check text-green-500 mr-1.5"></i>Foothills County</span>
+                            <span class="px-3 py-1 bg-white text-slate-700 text-xs font-semibold rounded-full border border-slate-200 shadow-sm"><i class="fas fa-check text-green-500 mr-1.5"></i>Rocky View County</span>
+                        </div>
+                    </div>
+
+                    <div class="p-4 bg-amber-50 border border-amber-200 rounded-lg flex items-start gap-3 text-amber-900 text-sm">
+                        <i class="fas fa-info-circle text-amber-600 text-lg mt-0.5 shrink-0"></i>
+                        <span>Located outside this perimeter? We regularly travel for commercial builds and larger residential projects. <a href="#contact" class="font-bold underline text-amber-950 hover:text-amber-700">Contact us</a> for availability.</span>
+                    </div>
+                </div>
+
+                <!-- Interactive Map Canvas Container -->
+                <div class="lg:col-span-7">
+                    <div class="bg-white p-3 rounded-2xl shadow-xl border border-slate-200">
+                        <div id="service-map" class="w-full h-[420px] rounded-xl overflow-hidden shadow-inner z-0"></div>
+                        <div class="mt-2 text-center">
+                            <a 
+                                href="https://www.google.com/maps/search/?api=1&query=Silver+Plains+Electric+Calgary" 
+                                target="_blank" 
+                                rel="noopener noreferrer" 
+                                class="text-xs text-brand-blue hover:underline inline-flex items-center gap-1 font-semibold"
+                            >
+                                <span>Open Silver Plains Electric in Google Maps</span>
+                                <i class="fas fa-external-link-alt text-[10px]"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
     <!-- Contact & Lead Form Section -->
     <section id="contact" class="py-20 bg-brand-dark relative">
         <div class="absolute inset-0 opacity-10 bg-[url('https://www.transparenttextures.com/patterns/carbon-fibre.png')]"></div>
@@ -571,6 +642,7 @@
                         </ul>
                         <ul class="space-y-2">
                             <li><a href="#about" class="hover:text-brand-accent">About Us</a></li>
+                            <li><a href="#service-area" class="hover:text-brand-accent">Service Area</a></li>
                             <li><a href="#reviews" class="hover:text-brand-accent">Reviews</a></li>
                             <li><a href="#contact" class="hover:text-brand-accent">Contact</a></li>
                         </ul>
@@ -834,6 +906,55 @@
             },
             "hideEventTypeDetails": false,
             "layout": "month_view"
+        });
+    </script>
+
+    <!-- Interactive Map Initializer -->
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const mapElement = document.getElementById('service-map');
+            if (!mapElement || typeof L === 'undefined') return;
+
+            // Centered on Calgary region
+            const map = L.map('service-map', {
+                scrollWheelZoom: false
+            }).setView([51.01, -114.04], 10);
+
+            // Clean, fast OpenStreetMap tile layer
+            L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+                attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
+                maxZoom: 16
+            }).addTo(map);
+
+            // Service area perimeter (Calgary & surrounding towns)
+            L.circle([51.00, -114.02], {
+                radius: 30000, // 30km coverage radius
+                color: '#0056b3',
+                fillColor: '#0056b3',
+                fillOpacity: 0.12,
+                weight: 2
+            }).addTo(map);
+
+            // Dispatch Hub Marker (Copperfield SE)
+            const hubMarker = L.marker([50.9168, -113.9372]).addTo(map);
+            hubMarker.bindPopup('<strong>Silver Plains Electric</strong><br>Dispatch Hub (Copperfield SE)').openPopup();
+
+            // Additional service anchor points
+            const communities = [
+                { name: 'Calgary (Downtown / NW / NE)', coords: [51.0447, -114.0719] },
+                { name: 'Okotoks', coords: [50.7255, -113.9752] },
+                { name: 'Airdrie', coords: [51.2917, -114.0144] },
+                { name: 'Chestermere', coords: [51.0504, -113.8222] }
+            ];
+
+            communities.forEach(c => {
+                L.circleMarker(c.coords, {
+                    radius: 6,
+                    color: '#f59e0b',
+                    fillColor: '#f59e0b',
+                    fillOpacity: 0.9
+                }).addTo(map).bindPopup(`<strong>${c.name}</strong><br>Regular Service Zone`);
+            });
         });
     </script>
 </body>
