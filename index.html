@@ -760,7 +760,18 @@
                     `;
                 }).join('');
 
-                container.innerHTML = `<div class="grid md:grid-cols-${Math.min(googleReviews.length, 3)} gap-8">${reviewsHtml}</div>`;
+                // Adaptive layout:
+                // 1 review: Featured centered card (max-w-xl) so it doesn't stretch awkwardly
+                // 2 reviews: Balanced 2-column layout (max-w-4xl)
+                // 3+ reviews: Clean 3-column card grid (left to right)
+                let layoutClasses = 'grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8';
+                if (googleReviews.length === 1) {
+                    layoutClasses = 'max-w-xl mx-auto';
+                } else if (googleReviews.length === 2) {
+                    layoutClasses = 'grid grid-cols-1 md:grid-cols-2 max-w-4xl mx-auto gap-8';
+                }
+
+                container.innerHTML = `<div class="${layoutClasses}">${reviewsHtml}</div>`;
             }
         }
 
