@@ -69,7 +69,7 @@
         }
     </script>
 </head>
-<body class="text-slate-800 bg-slate-50">
+<body class="text-slate-800 bg-slate-50 pb-20 md:pb-0">
 
     <!-- Top Announcement / Contact Bar -->
     <div class="bg-brand-dark text-slate-300 py-2 text-sm">
@@ -198,6 +198,55 @@
                         <li><i class="fas fa-check text-green-500 mr-2"></i>Code Corrections</li>
                     </ul>
                 </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Trust & Credibility Strip -->
+    <section class="bg-white py-8 border-y border-slate-200 shadow-sm relative z-10">
+        <div class="container mx-auto px-4">
+            <div class="grid grid-cols-2 lg:grid-cols-4 gap-6 md:gap-8 items-center text-center md:text-left">
+                
+                <div class="flex flex-col sm:flex-row items-center sm:items-start gap-3">
+                    <div class="w-12 h-12 rounded-xl bg-blue-50 text-brand-blue flex items-center justify-center text-xl shrink-0 shadow-sm border border-blue-100">
+                        <i class="fas fa-certificate"></i>
+                    </div>
+                    <div>
+                        <strong class="block text-slate-900 font-bold text-sm md:text-base">Licensed & Insured</strong>
+                        <span class="text-xs text-slate-500">City of Calgary Lic. #BL305602</span>
+                    </div>
+                </div>
+
+                <div class="flex flex-col sm:flex-row items-center sm:items-start gap-3">
+                    <div class="w-12 h-12 rounded-xl bg-amber-50 text-brand-accent flex items-center justify-center text-xl shrink-0 shadow-sm border border-amber-100">
+                        <i class="fas fa-shield-alt"></i>
+                    </div>
+                    <div>
+                        <strong class="block text-slate-900 font-bold text-sm md:text-base">Code & Safety Certified</strong>
+                        <span class="text-xs text-slate-500">Canadian Electrical Code (CEC) Compliant</span>
+                    </div>
+                </div>
+
+                <div class="flex flex-col sm:flex-row items-center sm:items-start gap-3">
+                    <div class="w-12 h-12 rounded-xl bg-emerald-50 text-emerald-600 flex items-center justify-center text-xl shrink-0 shadow-sm border border-emerald-100">
+                        <i class="fas fa-hand-holding-dollar"></i>
+                    </div>
+                    <div>
+                        <strong class="block text-slate-900 font-bold text-sm md:text-base">Upfront Pricing</strong>
+                        <span class="text-xs text-slate-500">Zero hidden fees or surprises</span>
+                    </div>
+                </div>
+
+                <div class="flex flex-col sm:flex-row items-center sm:items-start gap-3">
+                    <div class="w-12 h-12 rounded-xl bg-purple-50 text-purple-600 flex items-center justify-center text-xl shrink-0 shadow-sm border border-purple-100">
+                        <i class="fas fa-award"></i>
+                    </div>
+                    <div>
+                        <strong class="block text-slate-900 font-bold text-sm md:text-base">1-Year Warranty</strong>
+                        <span class="text-xs text-slate-500">Guaranteed quality workmanship</span>
+                    </div>
+                </div>
+
             </div>
         </div>
     </section>
@@ -957,5 +1006,35 @@
             });
         });
     </script>
+
+    <!-- Mobile Sticky Quick-Action Bar with Google Tag Conversion Tracking -->
+    <div class="md:hidden fixed bottom-0 left-0 right-0 z-50 bg-slate-900/95 backdrop-blur border-t border-slate-800 p-2.5 shadow-2xl">
+        <div class="grid grid-cols-2 gap-2 max-w-md mx-auto">
+            <!-- Call Direct Button -->
+            <a 
+                href="tel:825-513-3987" 
+                onclick="if(typeof gtag==='function'){gtag('event', 'conversion', {'send_to': 'AW-18234802611/nA9yCIWt0escELODhPdD', 'value': 1.0, 'currency': 'CAD'});}"
+                class="flex items-center justify-center gap-2 bg-slate-800 border border-slate-700 text-white py-3 px-3 rounded-lg font-bold text-sm shadow active:scale-95 transition"
+            >
+                <i class="fas fa-phone-alt text-brand-accent animate-pulse"></i>
+                <span>Call (825) 513-3987</span>
+            </a>
+
+            <!-- Book Assessment Button -->
+            <a 
+                href="https://cal.com/bobby-noseworthy-mdygrv/30min"
+                target="_blank"
+                rel="noopener noreferrer"
+                data-cal-link="bobby-noseworthy-mdygrv/30min" 
+                data-cal-namespace="onsite-assessment"
+                data-cal-config='{"layout":"month_view"}'
+                onclick="if(typeof gtag==='function'){gtag('event', 'conversion', {'send_to': 'AW-18234802611/RhXjCIKt0escELODhPdD'});}"
+                class="flex items-center justify-center gap-2 bg-brand-accent text-brand-dark py-3 px-3 rounded-lg font-bold text-sm shadow hover:bg-yellow-500 active:scale-95 transition"
+            >
+                <i class="far fa-calendar-check text-base"></i>
+                <span>Book Visit</span>
+            </a>
+        </div>
+    </div>
 </body>
 </html>
