@@ -24,6 +24,101 @@
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
     <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
 
+    <!-- Schema.org Structured Data for Calgary Local SEO & Google Rich Snippets -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@graph": [
+        {
+          "@type": "Electrician",
+          "@id": "https://silverplainselectric.com/#electrician",
+          "name": "Silver Plains Electric",
+          "telephone": "+1-825-513-3987",
+          "email": "info@silverplainselectric.com",
+          "url": "https://silverplainselectric.com",
+          "address": {
+            "@type": "PostalAddress",
+            "streetAddress": "133 Copperfield Grove SE",
+            "addressLocality": "Calgary",
+            "addressRegion": "AB",
+            "postalCode": "T2Z 4L7",
+            "addressCountry": "CA"
+          },
+          "geo": {
+            "@type": "GeoCoordinates",
+            "latitude": 50.9168,
+            "longitude": -113.9372
+          },
+          "areaServed": [
+            { "@type": "City", "name": "Calgary" },
+            { "@type": "City", "name": "Airdrie" },
+            { "@type": "City", "name": "Okotoks" },
+            { "@type": "City", "name": "Chestermere" },
+            { "@type": "City", "name": "Langdon" },
+            { "@type": "City", "name": "High River" }
+          ],
+          "priceRange": "$$",
+          "description": "Licensed and insured electrical contracting company based in Calgary, Alberta. Specializing in residential renovations, panel upgrades, EV chargers, commercial electrical, and 24/7 emergency service.",
+          "hasCredential": "City of Calgary Electrical Contractor Licence #BL305602"
+        },
+        {
+          "@type": "FAQPage",
+          "@id": "https://silverplainselectric.com/#faq",
+          "mainEntity": [
+            {
+              "@type": "Question",
+              "name": "When do I require an electrical permit?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "The Safety Codes Act requires that contractors and homeowners in Alberta obtain permits before beginning work on structures and systems covered under the Safety Codes Act. This work typically includes new constructions, installations, alterations, repairs, relocations, changes of use, demolitions, and removals. As licensed master electricians, Silver Plains Electric manages the entire permit process on your behalf. We pull the official municipal permit, complete the wiring to the Canadian Electrical Code (CEC), and schedule the inspection for final sign-off — protecting your family, your insurance and your property."
+              }
+            },
+            {
+              "@type": "Question",
+              "name": "When should I consider upgrading my panel or installing a load management system?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "You should consider a panel upgrade or a load management system whenever you plan to add substantial electrical loads to your home or garage. In older neighborhoods, 60A and 100A services rarely have the capacity to support these additional loads. When a full 200A service upgrade via ENMAX Power is cost-prohibitive or structurally difficult, a code-compliant load management device (such as an EVEMS or DCC) safely manages power distribution without needing a full service replacement."
+              }
+            },
+            {
+              "@type": "Question",
+              "name": "What is involved when installing a level 2 EV charger? or Tesla Wall Connector?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "A level 2 home charger requires a dedicated 240-volt circuit ranging from 40 to 60 amps. We calculate your home's total electrical demand to verify panel capacity, pull the permits, run the appropriately sized wiring to your garage or exterior parking pad, and securely mount and test your charger. We install all major systems including Tesla Wall Connectors, ChargePoint Home Flex, Grizzl-E, Flo, and Ford Connected Charge Stations."
+              }
+            },
+            {
+              "@type": "Question",
+              "name": "My home has aluminum wiring, what steps do I take to ensure my home is functional and safe?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "Calgary homes built between the 1960's and 70's often feature aluminum branch wiring. Over time, aluminum expands and contracts at connections, increasing the chance of failure. Incompatible devices can also greatly increase the chance of failure (copper rated devices with aluminum wiring). Complete rewiring is rarely necessary. In most cases, we install code-compliant copper pigtails using properly rated wire nuts at all switches, receptacles, and light fixtures. Once complete, we provide documentation for your home insurance provider certifying CEC compliance."
+              }
+            },
+            {
+              "@type": "Question",
+              "name": "How quickly can Silver Plains Electric dispatch for an electrical emergency?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "We offer 24/7 emergency dispatch across Calgary and surrounding areas. For safety emergencies - including burning smells around electrical panels, arcing/sparking breakers (potential crackling sound), power loss to heating systems during Alberta's freezing winters, or storm-damaged service mast - please skip contact forms and call us directly at (825) 513-3987."
+              }
+            },
+            {
+              "@type": "Question",
+              "name": "How does your pricing work, and can I book an assessment online?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "We believe in 100% upfront, transparent pricing with no hidden fees. You can schedule an onsite assessment directly on our live calendar, where we examine your project, provide a clear scope of work, and deliver a firm estimate before any work begins."
+              }
+            }
+          ]
+        }
+      ]
+    }
+    </script>
+
     <style>
         body {
             font-family: 'Inter', sans-serif;
@@ -105,6 +200,7 @@
                     <a href="#commercial" class="hover:text-brand-blue transition">Commercial</a>
                     <a href="#about" class="hover:text-brand-blue transition">About</a>
                     <a href="#service-area" class="hover:text-brand-blue transition">Service Area</a>
+                    <a href="#faq" class="hover:text-brand-blue transition">FAQ</a>
                     <a href="#reviews" class="hover:text-brand-blue transition flex items-center">
                         <i class="fas fa-star text-amber-400 text-xs mr-1"></i> Reviews
                     </a>
@@ -124,6 +220,7 @@
             <a href="#commercial" class="block px-4 py-3 border-b border-slate-200 hover:bg-slate-200">Commercial</a>
             <a href="#about" class="block px-4 py-3 border-b border-slate-200 hover:bg-slate-200">About</a>
             <a href="#service-area" class="block px-4 py-3 border-b border-slate-200 hover:bg-slate-200">Service Area</a>
+            <a href="#faq" class="block px-4 py-3 border-b border-slate-200 hover:bg-slate-200">FAQ</a>
             <a href="#reviews" class="block px-4 py-3 border-b border-slate-200 hover:bg-slate-200 flex items-center">
                 <i class="fas fa-star text-amber-400 text-xs mr-2"></i> Reviews
             </a>
@@ -242,8 +339,8 @@
                         <i class="fas fa-award"></i>
                     </div>
                     <div>
-                        <strong class="block text-slate-900 font-bold text-sm md:text-base">5-Year Warranty</strong>
-                        <span class="text-xs text-slate-500">Guaranteed quality workmanship</span>
+                        <strong class="block text-slate-900 font-bold text-sm md:text-base">Lifetime Warranty</strong>
+                        <span class="text-xs text-slate-500">Guaranteed workmanship on wiring & boxes</span>
                     </div>
                 </div>
 
@@ -506,6 +603,207 @@
         </div>
     </section>
 
+    <!-- FAQ Section (Calgary Electrical Expertise & SEO Accordion) -->
+    <section id="faq" class="py-20 bg-slate-50 border-t border-slate-200">
+        <div class="container mx-auto px-4">
+            <div class="max-w-3xl mx-auto text-center mb-14">
+                <div class="inline-flex items-center gap-2 bg-blue-50 text-brand-blue px-4 py-1.5 rounded-full text-xs font-bold uppercase tracking-wider mb-4 border border-blue-100">
+                    <i class="fas fa-question-circle"></i>
+                    <span>Got Questions?</span>
+                </div>
+                <h2 class="text-4xl font-bold text-brand-dark mb-4">Frequently Asked Questions</h2>
+                <p class="text-slate-600 text-lg">
+                    Clear, honest answers about permits, panel upgrades, EV chargers, and electrical safety in Calgary & Southern Alberta.
+                </p>
+            </div>
+
+            <!-- Accordion List -->
+            <div class="max-w-4xl mx-auto space-y-4">
+
+                <!-- FAQ 1: Permits -->
+                <details class="group bg-white rounded-xl border border-slate-200 shadow-sm overflow-hidden transition-all duration-200 open:shadow-md open:border-brand-blue/30">
+                    <summary class="flex justify-between items-center p-6 cursor-pointer list-none select-none font-bold text-slate-900 hover:text-brand-blue transition">
+                        <span class="flex items-center gap-3 text-base md:text-lg">
+                            <i class="fas fa-file-contract text-brand-blue shrink-0"></i>
+                            When do I require an electrical permit?
+                        </span>
+                        <div class="w-8 h-8 rounded-full bg-slate-100 flex items-center justify-center shrink-0 ml-4 group-open:bg-blue-50 group-open:text-brand-blue transition-colors">
+                            <i class="fas fa-chevron-down text-xs text-slate-500 group-open:text-brand-blue group-open:rotate-180 transition-transform duration-300"></i>
+                        </div>
+                    </summary>
+                    <div class="px-6 pb-6 pt-2 text-slate-600 border-t border-slate-100 text-sm md:text-base leading-relaxed space-y-3">
+                        <p>
+                            The Safety Codes Act requires that contractors and homeowners in Alberta obtain permits before beginning work on structures and systems covered under the Safety Codes Act. This work typically includes new constructions, installations, alterations, repairs, relocations, changes of use, demolitions, and removals.
+                        </p>
+                        <p>
+                            As licensed master electricians, Silver Plains Electric manages the entire permit process on your behalf. We pull the official municipal permit, complete the wiring to the Canadian Electrical Code (CEC), and schedule the inspection for final sign-off — protecting your family, your insurance and your property.
+                        </p>
+                        <div class="pt-3 border-t border-slate-100">
+                            <a 
+                                href="https://www.safetycodes.ab.ca/permits-inspections/permit-information/" 
+                                target="_blank" 
+                                rel="noopener noreferrer" 
+                                class="inline-flex items-center gap-2 text-xs md:text-sm font-semibold text-brand-blue hover:text-blue-700 transition"
+                            >
+                                <i class="fas fa-external-link-alt text-xs text-brand-accent"></i>
+                                <span>Reference: Safety Codes Council – Alberta Permits & Inspections Information</span>
+                            </a>
+                        </div>
+                    </div>
+                </details>
+
+                <!-- FAQ 2: Panel Upgrades -->
+                <details class="group bg-white rounded-xl border border-slate-200 shadow-sm overflow-hidden transition-all duration-200 open:shadow-md open:border-brand-blue/30">
+                    <summary class="flex justify-between items-center p-6 cursor-pointer list-none select-none font-bold text-slate-900 hover:text-brand-blue transition">
+                        <span class="flex items-center gap-3 text-base md:text-lg">
+                            <i class="fas fa-bolt text-brand-accent shrink-0"></i>
+                            When should I consider upgrading my panel or installing a load management system?
+                        </span>
+                        <div class="w-8 h-8 rounded-full bg-slate-100 flex items-center justify-center shrink-0 ml-4 group-open:bg-blue-50 group-open:text-brand-blue transition-colors">
+                            <i class="fas fa-chevron-down text-xs text-slate-500 group-open:text-brand-blue group-open:rotate-180 transition-transform duration-300"></i>
+                        </div>
+                    </summary>
+                    <div class="px-6 pb-6 pt-2 text-slate-600 border-t border-slate-100 text-sm md:text-base leading-relaxed space-y-3">
+                        <p>
+                            You should consider a panel upgrade or a load management system whenever you plan to add substantial electrical loads to your home or garage. In older neighborhoods, 60A and 100A services rarely have the capacity to support these additional loads. Common triggers for an upgrade or load management include:
+                        </p>
+                        <ul class="list-disc pl-5 space-y-1.5 text-slate-700">
+                            <li>Installing a 240V Level 2 electric vehicle (EV) charger</li>
+                            <li>Adding central air conditioning or a high-efficiency heat pump</li>
+                            <li>Developing a legal basement suite or backyard suite</li>
+                            <li>Adding a hot tub, induction range, or heavy workshop equipment</li>
+                            <li>Noticing signs of overload, like warm breakers or flickering lights</li>
+                        </ul>
+                        <p>
+                            <strong>What is a load management system?</strong> If upgrading your main electrical service to 200A involves costly underground trenching or prolonged coordination with ENMAX Power, an intelligent <strong>energy management or load management system</strong> (such as an EVEMS or DCC) is often an ideal, cost-effective alternative. It actively monitors your home's total electrical draw in real time, briefly shedding secondary loads (like an EV charger) if household usage peaks, and restoring power when demand drops—keeping your installation 100% compliant with the Canadian Electrical Code (CEC).
+                        </p>
+                    </div>
+                </details>
+
+                <!-- FAQ 3: EV Chargers -->
+                <details class="group bg-white rounded-xl border border-slate-200 shadow-sm overflow-hidden transition-all duration-200 open:shadow-md open:border-brand-blue/30">
+                    <summary class="flex justify-between items-center p-6 cursor-pointer list-none select-none font-bold text-slate-900 hover:text-brand-blue transition">
+                        <span class="flex items-center gap-3 text-base md:text-lg">
+                            <i class="fas fa-charging-station text-emerald-600 shrink-0"></i>
+                            What is involved when installing a level 2 EV charger? or Tesla Wall Connector?
+                        </span>
+                        <div class="w-8 h-8 rounded-full bg-slate-100 flex items-center justify-center shrink-0 ml-4 group-open:bg-blue-50 group-open:text-brand-blue transition-colors">
+                            <i class="fas fa-chevron-down text-xs text-slate-500 group-open:text-brand-blue group-open:rotate-180 transition-transform duration-300"></i>
+                        </div>
+                    </summary>
+                    <div class="px-6 pb-6 pt-2 text-slate-600 border-t border-slate-100 text-sm md:text-base leading-relaxed space-y-3">
+                        <p>
+                            A level 2 home charger requires a dedicated 240-volt circuit ranging from 40 to 60 amps. We calculate your home's total electrical demand to verify panel capacity, pull the permits, run the appropriately sized wiring to your garage or exterior parking pad, and securely mount and test your charger.
+                        </p>
+                        <p>
+                            We install all major systems including <strong>Tesla Wall Connectors, ChargePoint Home Flex, Grizzl-E, Flo, and Ford Connected Charge Stations</strong>.
+                        </p>
+                        <div class="pt-3 border-t border-slate-100">
+                            <a 
+                                href="https://natural-resources.canada.ca/energy-efficiency/transportation-energy-efficiency/electric-vehicles/electric-vehicle-charging-charger-installation" 
+                                target="_blank" 
+                                rel="noopener noreferrer" 
+                                class="inline-flex items-center gap-2 text-xs md:text-sm font-semibold text-brand-blue hover:text-blue-700 transition"
+                            >
+                                <i class="fas fa-external-link-alt text-xs text-brand-accent"></i>
+                                <span>Reference: Government of Canada – Electric Vehicle Charging & Installation Guide</span>
+                            </a>
+                        </div>
+                    </div>
+                </details>
+
+                <!-- FAQ 4: Aluminum Wiring -->
+                <details class="group bg-white rounded-xl border border-slate-200 shadow-sm overflow-hidden transition-all duration-200 open:shadow-md open:border-brand-blue/30">
+                    <summary class="flex justify-between items-center p-6 cursor-pointer list-none select-none font-bold text-slate-900 hover:text-brand-blue transition">
+                        <span class="flex items-center gap-3 text-base md:text-lg">
+                            <i class="fas fa-shield-alt text-amber-500 shrink-0"></i>
+                            My home has aluminum wiring, what steps do I take to ensure my home is functional and safe?
+                        </span>
+                        <div class="w-8 h-8 rounded-full bg-slate-100 flex items-center justify-center shrink-0 ml-4 group-open:bg-blue-50 group-open:text-brand-blue transition-colors">
+                            <i class="fas fa-chevron-down text-xs text-slate-500 group-open:text-brand-blue group-open:rotate-180 transition-transform duration-300"></i>
+                        </div>
+                    </summary>
+                    <div class="px-6 pb-6 pt-2 text-slate-600 border-t border-slate-100 text-sm md:text-base leading-relaxed space-y-3">
+                        <p>
+                            Calgary homes built between the 1960's and 70's often feature aluminum branch wiring. Over time, aluminum expands and contracts at connections, increasing the chance of failure. Incompatible devices can also greatly increase the chance of failure (copper rated devices with aluminum wiring).
+                        </p>
+                        <p>
+                            Complete rewiring is rarely necessary. In most cases, we install code-compliant copper pigtails using properly rated wire nuts at all switches, receptacles, and light fixtures. Once complete, we provide documentation for your home insurance provider certifying CEC compliance.
+                        </p>
+                        <div class="pt-3 border-t border-slate-100">
+                            <a 
+                                href="https://esasafe.com/assets/files/esasafe/pdf/Electrical_Safety_Products/Flash_Notices/19-30-FL.pdf" 
+                                target="_blank" 
+                                rel="noopener noreferrer" 
+                                class="inline-flex items-center gap-2 text-xs md:text-sm font-semibold text-brand-blue hover:text-blue-700 transition"
+                            >
+                                <i class="fas fa-external-link-alt text-xs text-brand-accent"></i>
+                                <span>Reference: Electrical Safety Authority (ESA) – Aluminum Wiring Flash Notice Guidelines</span>
+                            </a>
+                        </div>
+                    </div>
+                </details>
+
+                <!-- FAQ 5: Emergency Response -->
+                <details class="group bg-white rounded-xl border border-slate-200 shadow-sm overflow-hidden transition-all duration-200 open:shadow-md open:border-brand-blue/30">
+                    <summary class="flex justify-between items-center p-6 cursor-pointer list-none select-none font-bold text-slate-900 hover:text-brand-blue transition">
+                        <span class="flex items-center gap-3 text-base md:text-lg">
+                            <i class="fas fa-phone-volume text-red-500 shrink-0"></i>
+                            How quickly can you respond to an emergency electrical situation?
+                        </span>
+                        <div class="w-8 h-8 rounded-full bg-slate-100 flex items-center justify-center shrink-0 ml-4 group-open:bg-blue-50 group-open:text-brand-blue transition-colors">
+                            <i class="fas fa-chevron-down text-xs text-slate-500 group-open:text-brand-blue group-open:rotate-180 transition-transform duration-300"></i>
+                        </div>
+                    </summary>
+                    <div class="px-6 pb-6 pt-2 text-slate-600 border-t border-slate-100 text-sm md:text-base leading-relaxed">
+                        <p>
+                            We offer 24/7 emergency dispatch across Calgary and surrounding areas. For safety emergencies - including burning smells around electrical panels, arcing/sparking breakers (potential crackling sound), power loss to heating systems during Alberta's freezing winters, or storm-damaged service mast - please skip contact forms and call us directly at 
+                            <a href="tel:825-513-3987" onclick="if(typeof gtag==='function'){gtag('event', 'conversion', {'send_to': 'AW-18234802611/nA9yCIWt0escELODhPdD', 'value': 1.0, 'currency': 'CAD'});}" class="text-brand-blue font-bold hover:underline">(825) 513-3987</a>.
+                        </p>
+                    </div>
+                </details>
+
+                <!-- FAQ 6: Pricing & Assessments -->
+                <details class="group bg-white rounded-xl border border-slate-200 shadow-sm overflow-hidden transition-all duration-200 open:shadow-md open:border-brand-blue/30">
+                    <summary class="flex justify-between items-center p-6 cursor-pointer list-none select-none font-bold text-slate-900 hover:text-brand-blue transition">
+                        <span class="flex items-center gap-3 text-base md:text-lg">
+                            <i class="fas fa-hand-holding-dollar text-green-600 shrink-0"></i>
+                            How do your quotes work, and what does your lifetime workmanship warranty cover?
+                        </span>
+                        <div class="w-8 h-8 rounded-full bg-slate-100 flex items-center justify-center shrink-0 ml-4 group-open:bg-blue-50 group-open:text-brand-blue transition-colors">
+                            <i class="fas fa-chevron-down text-xs text-slate-500 group-open:text-brand-blue group-open:rotate-180 transition-transform duration-300"></i>
+                        </div>
+                    </summary>
+                    <div class="px-6 pb-6 pt-2 text-slate-600 border-t border-slate-100 text-sm md:text-base leading-relaxed space-y-3">
+                        <p>
+                            We operate on strict <strong>upfront pricing</strong> with zero hidden fees. You can pick an exact time on our live calendar below for an onsite consultation. We assess your electrical infrastructure, clearly explain your options, and provide a written estimate before any work starts.
+                        </p>
+                        <p>
+                            Every installation is backed by our <strong>lifetime workmanship warranty</strong> on all wiring and electrical boxes. While end-of-line manufactured products (such as light fixtures, breakers, or receptacles) carry their respective manufacturer warranties and may eventually need routine replacement over their operational lifespan, our rough-in integrity, terminations, and box installations are built to stand the test of time.
+                        </p>
+                    </div>
+                </details>
+
+            </div>
+
+            <!-- Helpful Bridge to Contact -->
+            <div class="mt-12 text-center">
+                <p class="text-slate-600 text-sm md:text-base mb-4">
+                    Have a unique electrical question or project in mind that isn't covered here?
+                </p>
+                <div class="inline-flex flex-wrap items-center justify-center gap-3">
+                    <a href="#contact" class="px-5 py-2.5 bg-brand-blue text-white rounded font-bold hover:bg-blue-700 transition shadow text-sm">
+                        Ask Us Directly
+                    </a>
+                    <a href="tel:825-513-3987" class="px-5 py-2.5 bg-white border border-slate-300 text-slate-800 rounded font-semibold hover:bg-slate-100 transition text-sm">
+                        <i class="fas fa-phone-alt mr-1.5 text-brand-accent"></i> (825) 513-3987
+                    </a>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
     <!-- Contact & Lead Form Section -->
     <section id="contact" class="py-20 bg-brand-dark relative">
         <div class="absolute inset-0 opacity-10 bg-[url('https://www.transparenttextures.com/patterns/carbon-fibre.png')]"></div>
@@ -690,6 +988,7 @@
                         <ul class="space-y-2">
                             <li><a href="#about" class="hover:text-brand-accent">About Us</a></li>
                             <li><a href="#service-area" class="hover:text-brand-accent">Service Area</a></li>
+                            <li><a href="#faq" class="hover:text-brand-accent">FAQ</a></li>
                             <li><a href="#reviews" class="hover:text-brand-accent">Reviews</a></li>
                             <li><a href="#contact" class="hover:text-brand-accent">Contact</a></li>
                         </ul>
