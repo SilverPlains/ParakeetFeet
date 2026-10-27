@@ -1,5 +1,13 @@
 [
   {
+    "name": "Kyle Whitehill",
+    "location": "Calgary, AB",
+    "projectType": "Verified Client",
+    "rating": 5,
+    "date": "3 weeks ago",
+    "text": "Bobby is the only electrician you will ever need! He has unbeatable knowledge and skills and is always 100% honest. He gets the job done right every time. He'll even teach you how to do things yourself!"
+  },
+  {
     "name": "Blake Neustaedter",
     "location": "Calgary, AB",
     "projectType": "Verified Client",
@@ -8,12 +16,12 @@
     "text": "I called Bobby on a Sunday afternoon to help me install a new bathroom fan. He immediately walked me through all the options and helped me choose the fan that would work best.\n\nHe is an expert in his field and I am going to recommend him to everyone that I know!"
   },
   {
-    "name": "Kyle Whitehill",
+    "name": "Shawmann Plumbing",
     "location": "Calgary, AB",
     "projectType": "Verified Client",
     "rating": 5,
-    "date": "3 weeks ago",
-    "text": "Bobby is the only electrician you will ever need! He has unbeatable knowledge and skills and is always 100% honest. He gets the job done right every time. He'll even teach you how to do things yourself!"
+    "date": "in the last week",
+    "text": "I used Silver Plains to help me connect a commercial garage heater to the panel. I than got him to do my entire basement at home. I Highly recommend Bobby Noseworthy. Especially if you want it to code and looking good. I trust his work."
   },
   {
     "name": "Rick Hallam",
