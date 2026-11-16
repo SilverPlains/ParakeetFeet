@@ -1378,15 +1378,56 @@
         </div>
     </div>
 
-    <!-- Mobile-Only Direct SMS Widget (Hidden on Desktop) -->
-    <!-- The phone number is masked behind the icon, and pre-fills a friendly greeting -->
-    <a 
-        href="sms:+14036040033?body=Hi%20Silver%20Plains%20Electric,%20I%20have%20a%20question%20about..."
-        onclick="if(typeof gtag==='function'){gtag('event', 'conversion', {'send_to': 'AW-18234802611/sms_button_click'});}"
-        class="md:hidden fixed bottom-[88px] right-4 z-50 w-14 h-14 bg-brand-blue text-white rounded-full flex items-center justify-center shadow-[0_8px_30px_rgb(0,0,0,0.3)] border-2 border-white hover:bg-blue-700 active:scale-90 transition-transform duration-200"
-        aria-label="Send us a text message"
+    <!-- Mobile-Only SMS Widget Trigger (Hidden on Desktop) -->
+    <button 
+        onclick="document.getElementById('sms-modal').classList.remove('hidden'); document.getElementById('sms-modal').classList.add('flex');"
+        class="md:hidden fixed bottom-[88px] right-4 z-40 w-14 h-14 bg-brand-blue text-white rounded-full flex items-center justify-center shadow-[0_8px_30px_rgb(0,0,0,0.3)] border-2 border-white hover:bg-blue-700 active:scale-90 transition-transform duration-200"
+        aria-label="Open text message options"
     >
         <i class="fas fa-comment-dots text-2xl mt-0.5"></i>
-    </a>
+    </button>
+
+    <!-- SMS Confirmation Modal / Popup -->
+    <div id="sms-modal" class="hidden fixed inset-0 z-[60] bg-slate-900/60 backdrop-blur-sm items-center justify-center p-4 transition-opacity">
+        <div class="bg-white rounded-2xl shadow-2xl w-full max-w-sm overflow-hidden transform transition-all">
+            <!-- Modal Header -->
+            <div class="bg-brand-blue p-5 text-center text-white relative">
+                <i class="fas fa-comment-dots text-4xl mb-2 opacity-90"></i>
+                <h3 class="text-xl font-bold">Text Our Dispatch</h3>
+                <button 
+                    onclick="document.getElementById('sms-modal').classList.add('hidden'); document.getElementById('sms-modal').classList.remove('flex');" 
+                    class="absolute top-4 right-4 text-white/70 hover:text-white transition p-2"
+                    aria-label="Close modal"
+                >
+                    <i class="fas fa-times text-xl"></i>
+                </button>
+            </div>
+            
+            <!-- Modal Body -->
+            <div class="p-6 text-center">
+                <p class="text-slate-600 mb-6 text-sm leading-relaxed">
+                    This will safely open your phone's native messaging app so you can text us directly. We typically reply within minutes!
+                </p>
+                <div class="flex flex-col gap-3">
+                    <!-- The actual SMS link with Google Tracking -->
+                    <a 
+                        href="sms:+14036040033?body=Hi%20Silver%20Plains%20Electric,%20I%20have%20a%20question%20about..."
+                        onclick="if(typeof gtag==='function'){gtag('event', 'conversion', {'send_to': 'AW-18234802611/sms_button_click'});} document.getElementById('sms-modal').classList.add('hidden'); document.getElementById('sms-modal').classList.remove('flex');"
+                        class="w-full bg-brand-accent text-brand-dark font-bold py-3.5 rounded-lg flex items-center justify-center gap-2 shadow-md hover:bg-yellow-500 active:scale-95 transition"
+                    >
+                        <i class="fas fa-paper-plane"></i> Open Messages App
+                    </a>
+                    
+                    <!-- Cancel Button -->
+                    <button 
+                        onclick="document.getElementById('sms-modal').classList.add('hidden'); document.getElementById('sms-modal').classList.remove('flex');"
+                        class="w-full bg-slate-100 text-slate-700 font-semibold py-3.5 rounded-lg hover:bg-slate-200 transition"
+                    >
+                        Cancel
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
 </body>
 </html>
