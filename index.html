@@ -1379,22 +1379,23 @@
 
     <!-- Mobile-Only SMS Widget Trigger (Hidden on Desktop) -->
     <button 
-        onclick="document.getElementById('sms-modal').classList.remove('hidden'); document.getElementById('sms-modal').classList.add('flex');"
+        onclick="openSmsModal()"
         class="md:hidden fixed bottom-[88px] right-4 z-40 w-14 h-14 bg-brand-blue text-white rounded-full flex items-center justify-center shadow-[0_8px_30px_rgb(0,0,0,0.3)] border-2 border-white hover:bg-blue-700 active:scale-90 transition-transform duration-200"
         aria-label="Open text message options"
     >
         <i class="fas fa-comment-dots text-2xl mt-0.5"></i>
     </button>
 
-    <!-- SMS Confirmation Modal / Popup -->
+    <!-- SMS Dynamic Modal / Popup -->
     <div id="sms-modal" class="hidden fixed inset-0 z-[60] bg-slate-900/60 backdrop-blur-sm items-center justify-center p-4 transition-opacity">
         <div class="bg-white rounded-2xl shadow-2xl w-full max-w-sm overflow-hidden transform transition-all">
-            <!-- Modal Header -->
-            <div class="bg-brand-blue p-5 text-center text-white relative">
-                <i class="fas fa-comment-dots text-4xl mb-2 opacity-90"></i>
-                <h3 class="text-xl font-bold">Text Our Dispatch</h3>
+            
+            <!-- Dynamic Modal Header -->
+            <div id="sms-modal-header" class="bg-brand-blue p-5 text-center text-white relative">
+                <i id="sms-modal-icon" class="fas fa-comment-dots text-4xl mb-2 opacity-90"></i>
+                <h3 id="sms-modal-title" class="text-xl font-bold">Text Our Dispatch</h3>
                 <button 
-                    onclick="document.getElementById('sms-modal').classList.add('hidden'); document.getElementById('sms-modal').classList.remove('flex');" 
+                    onclick="closeSmsModal()" 
                     class="absolute top-4 right-4 text-white/70 hover:text-white transition p-2"
                     aria-label="Close modal"
                 >
@@ -1402,8 +1403,8 @@
                 </button>
             </div>
             
-            <!-- Modal Body -->
-            <div class="p-6 text-center">
+            <!-- OPEN STATE: Modal Body (During Mon-Fri 7am-5pm) -->
+            <div id="sms-modal-open" class="hidden p-6 text-center">
                 <p class="text-slate-600 mb-6 text-sm leading-relaxed">
                     This will safely open your phone's native messaging app so you can text us directly. We typically reply within minutes!
                 </p>
@@ -1411,7 +1412,7 @@
                     <!-- The actual SMS link with Google Tracking -->
                     <a 
                         href="sms:+14036040033?body=Hi%20Silver%20Plains%20Electric,%20I%20have%20a%20question%20about..."
-                        onclick="if(typeof gtag==='function'){gtag('event', 'conversion', {'send_to': 'AW-18234802611/sms_button_click'});} document.getElementById('sms-modal').classList.add('hidden'); document.getElementById('sms-modal').classList.remove('flex');"
+                        onclick="if(typeof gtag==='function'){gtag('event', 'conversion', {'send_to': 'AW-18234802611/sms_button_click'});} closeSmsModal();"
                         class="w-full bg-brand-accent text-brand-dark font-bold py-3.5 rounded-lg flex items-center justify-center gap-2 shadow-md hover:bg-yellow-500 active:scale-95 transition"
                     >
                         <i class="fas fa-paper-plane"></i> Open Messages App
@@ -1419,14 +1420,98 @@
                     
                     <!-- Cancel Button -->
                     <button 
-                        onclick="document.getElementById('sms-modal').classList.add('hidden'); document.getElementById('sms-modal').classList.remove('flex');"
+                        onclick="closeSmsModal()"
                         class="w-full bg-slate-100 text-slate-700 font-semibold py-3.5 rounded-lg hover:bg-slate-200 transition"
                     >
                         Cancel
                     </button>
                 </div>
             </div>
+
+            <!-- CLOSED STATE: Modal Body (After Hours / Weekends) -->
+            <div id="sms-modal-closed" class="hidden p-6 text-center">
+                <p class="text-slate-600 mb-6 text-sm leading-relaxed">
+                    Our text dispatch is currently closed (Mon-Fri, 7am-5pm). <strong>If you are experiencing an electrical emergency, please call our 24/7 line immediately.</strong>
+                </p>
+                <div class="flex flex-col gap-3">
+                    
+                    <!-- Emergency Call Button -->
+                    <a 
+                        href="tel:825-513-3987"
+                        onclick="if(typeof gtag==='function'){gtag('event', 'conversion', {'send_to': 'AW-18234802611/nA9yCIWt0escELODhPdD', 'value': 1.0, 'currency': 'CAD'});} closeSmsModal();"
+                        class="w-full bg-red-600 text-white font-bold py-3.5 rounded-lg flex items-center justify-center gap-2 shadow-md hover:bg-red-700 active:scale-95 transition"
+                    >
+                        <i class="fas fa-phone-volume animate-pulse"></i> Call Emergency Line
+                    </a>
+
+                    <!-- Secondary Option: Text for Next Day -->
+                    <a 
+                        href="sms:+14036040033?body=Hi%20Silver%20Plains%20Electric,%20this%20is%20not%20an%20emergency,%20but%20I%20have%20a%20question%20about..."
+                        onclick="if(typeof gtag==='function'){gtag('event', 'conversion', {'send_to': 'AW-18234802611/sms_button_click'});} closeSmsModal();"
+                        class="w-full bg-slate-100 text-slate-700 font-semibold py-3.5 rounded-lg hover:bg-slate-200 transition text-sm flex items-center justify-center gap-2"
+                    >
+                        <i class="fas fa-paper-plane text-slate-400"></i> Text for Next Business Day
+                    </a>
+                </div>
+            </div>
+
         </div>
     </div>
+
+    <!-- Time-Check Script for Dynamic SMS Modal -->
+    <script>
+        function openSmsModal() {
+            // Get current time formatted to Calgary (Mountain Time)
+            const options = { timeZone: 'America/Edmonton', hour12: false, weekday: 'long', hour: 'numeric' };
+            const formatter = new Intl.DateTimeFormat('en-US', options);
+            const parts = formatter.formatToParts(new Date());
+            
+            let weekday = '';
+            let hour = 0;
+            
+            parts.forEach(part => {
+                if (part.type === 'weekday') weekday = part.value;
+                if (part.type === 'hour') hour = parseInt(part.value, 10);
+            });
+
+            // Logic: Mon-Fri, 7:00 AM (7) to 5:00 PM (17)
+            const isWeekend = weekday === 'Saturday' || weekday === 'Sunday';
+            const isOpen = !isWeekend && (hour >= 7 && hour < 17);
+
+            const modal = document.getElementById('sms-modal');
+            const openContent = document.getElementById('sms-modal-open');
+            const closedContent = document.getElementById('sms-modal-closed');
+            const header = document.getElementById('sms-modal-header');
+            const icon = document.getElementById('sms-modal-icon');
+            const title = document.getElementById('sms-modal-title');
+
+            if (isOpen) {
+                // Style for Normal Hours
+                header.className = "bg-brand-blue p-5 text-center text-white relative";
+                icon.className = "fas fa-comment-dots text-4xl mb-2 opacity-90";
+                title.innerText = "Text Our Dispatch";
+                
+                openContent.classList.remove('hidden');
+                closedContent.classList.add('hidden');
+            } else {
+                // Style for After Hours / Weekends
+                header.className = "bg-slate-800 p-5 text-center text-white relative";
+                icon.className = "fas fa-moon text-4xl mb-2 opacity-90 text-brand-accent";
+                title.innerText = "Text Dispatch Closed";
+                
+                openContent.classList.add('hidden');
+                closedContent.classList.remove('hidden');
+            }
+
+            modal.classList.remove('hidden');
+            modal.classList.add('flex');
+        }
+
+        function closeSmsModal() {
+            const modal = document.getElementById('sms-modal');
+            modal.classList.add('hidden');
+            modal.classList.remove('flex');
+        }
+    </script>
 </body>
 </html>
