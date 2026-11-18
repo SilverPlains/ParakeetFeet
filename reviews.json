@@ -1,5 +1,13 @@
 [
   {
+    "name": "Ian Fraser",
+    "location": "Calgary, AB",
+    "projectType": "Verified Client",
+    "rating": 5,
+    "date": "in the last week",
+    "text": "Bobby is highly professional and we were very pleased with the work he did for us. We provided him with a scope of work and he provided us with an accurate and detailed quote that we reviewed and signed off on before his arrival. He arrived punctually, worked efficiently and completed the work thoroughly and to a high standard. We would not hesitate to hire him again and recommend him to anyone requiring electrical work in their home."
+  },
+  {
     "name": "Shawmann Plumbing",
     "location": "Calgary, AB",
     "projectType": "Verified Client",
@@ -30,13 +38,5 @@
     "rating": 5,
     "date": "a month ago",
     "text": "I called Bobby on a Sunday afternoon to help me install a new bathroom fan. He immediately walked me through all the options and helped me choose the fan that would work best.\n\nHe is an expert in his field and I am going to recommend him to everyone that I know!"
-  },
-  {
-    "name": "Kyle Whitehill",
-    "location": "Calgary, AB",
-    "projectType": "Verified Client",
-    "rating": 5,
-    "date": "a month ago",
-    "text": "Bobby is the only electrician you will ever need! He has unbeatable knowledge and skills and is always 100% honest. He gets the job done right every time. He'll even teach you how to do things yourself!"
   }
 ]
